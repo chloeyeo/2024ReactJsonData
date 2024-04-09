@@ -18,6 +18,18 @@ function App() {
   ]; // static thus don't need useState
 
   const [userData, setUserData] = useState([]);
+  //  initially userData is set to [] so on initial render
+  // userData = [] is passed to ViewPost child component as props
+  // thus theres nothing in userData which is why it gives cannot find title error in Viewpost.
+  // useEffect dependency list is empty thus useEffect will only execute on initial re-render and not on
+  // subsequent re renders due to state update, so when axios finishes and sets userData to response.data
+  // the state updates => as state updates it re-renders App() except useEffect(empty dependency list so only renders on initial render)
+  // so the ViewPost child component will now be rendered, now with userData=[response.data] passed in as props
+  // so now it can find props.listData.title or .body etc correctly in ViewPost child.
+  // to prevent error when userData=[] is initially passed in as props to ViewPost on initial render of App,
+  // we add if (props.listData.length === 0) {return "자료가 없음";} inside ViewPost so on initial render of ViewPost it will return "자료가 없음"
+  // then after axios finish => userData state change => App re-render except useEffect and thus on second render of ViewPost
+  // it will now correctly return matchedData.title and matchedData.body etc inside ViewPost.
 
   useEffect(() => {
     async function test() {
@@ -31,7 +43,7 @@ function App() {
       }
     }
     test();
-  }, [userData]);
+  }, []);
 
   return (
     <>
