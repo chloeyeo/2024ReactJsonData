@@ -3,9 +3,10 @@ import { useParams } from "react-router-dom";
 
 const ViewPost = (props) => {
   const { id } = useParams();
-  if (props.listData.length === 0) {
-    return "자료가 없음";
-  }
+  // we can comment this now bc we dealt with this via loading state in app.js
+  //   if (props.listData.length === 0) {
+  //     return "자료가 없음";
+  //   }
   const postId = parseInt(id, 10); // same as just parseInt(id)
   const matchedData = props.listData.find((item) => {
     // console.log(typeof item.id); // number
