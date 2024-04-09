@@ -43,7 +43,9 @@ function App() {
       }
     }
     test();
-  }, []);
+  }, []); // empty dependency list => only renders once on initial render of App
+  // but bc of empty dependency list useEffect won't re-render on subsequent re-renders of App such as due to state change
+  // if no dependency list given at all, useEffect will also re-render on each and every re-render of App thus we wnat to provide empty dependency list to prevent this.
 
   return (
     <>
