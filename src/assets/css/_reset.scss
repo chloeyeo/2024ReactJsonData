@@ -1,0 +1,19 @@
+// when using _ in file name => this file does not get compiled
+// we dont need to compile this file since we're gonna @use this file in other files anyway
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+  color: black;
+}
