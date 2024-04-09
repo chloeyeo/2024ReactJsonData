@@ -39,9 +39,14 @@ function App() {
         const response = await axios.get(
           "https://jsonplaceholder.typicode.com/posts?_page=1&_limit=10"
         );
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 800);
         setUserData(response.data);
       } catch (error) {
+        setTimeout(() => {
+          setLoading(false); // why put this here if axios gave error??
+        }, 800);
         console.error(error);
       }
     }
@@ -83,7 +88,7 @@ function App() {
         </div>
       </div>
       {loading ? (
-        <h3>Loading...</h3>
+        <div className="loading">Loading...</div>
       ) : (
         <Routes>
           <Route path="/" element={<Main listData={userData} />} />
