@@ -2,6 +2,7 @@ import { Routes, Route, NavLink } from "react-router-dom";
 import { FaReact } from "react-icons/fa";
 import { SlCursor } from "react-icons/sl";
 import "./assets/css/style.scss"; // can import scss directly to js but not to html
+import "./assets/css/tailwindStyle.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Main from "./layout/Main";

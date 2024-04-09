@@ -47,7 +47,9 @@ function AllPostsPagination({ allPosts, allUsers }) {
       <button
         key={i}
         onClick={() => setCurrentPage(i)}
-        className={currentPage === i ? "active" : ""}
+        className={`paginationButton mx-1 px-3 py-1 rounded-md ${
+          currentPage === i ? "bg-jacarta-400 text-white" : ""
+        }`}
       >
         {i}
       </button>
@@ -55,24 +57,28 @@ function AllPostsPagination({ allPosts, allUsers }) {
   }
 
   return (
-    <div>
-      <h2>All Posts</h2>
+    <div className="container mx-auto bg-jacarta-100 rounded-md p-4">
+      <h2 className="text-2xl font-bold mb-4">All Posts</h2>
       <ul>
         {paginatedPosts.map((post) => {
           const matchedUser = allUsers.find((user) => user.id === post.userId);
           return (
-            <li key={post.id}>
-              <h3>{post.title}</h3>
+            <li key={post.id} className="mb-4">
+              <h3 className="text-lg font-semibold mb-2">
+                Post title: {post.title}
+              </h3>
               {matchedUser && (
-                <div>
-                  <h5>{matchedUser.name}</h5>
-                  <p>
-                    Address - street: {matchedUser.address.street}, city:{" "}
+                <div className="mb-2">
+                  <h5 className="text-md font-semibold mb-2">
+                    Name: {matchedUser.name}
+                  </h5>
+                  <p className="text-sm font-semibold">
+                    Address - Street: {matchedUser.address.street}, City:{" "}
                     {matchedUser.address.city}
                   </p>
                 </div>
               )}
-              <p>{post.body}</p>
+              <p className="text-sm font-semibold">Post body: {post.body}</p>
             </li>
           );
         })}
@@ -82,7 +88,12 @@ function AllPostsPagination({ allPosts, allUsers }) {
       <div>
         {/* render prev button if current page not first page */}
         {currentPage > 1 && (
-          <button onClick={() => setCurrentPage(currentPage - 1)}>Prev</button>
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            className="mx-1 px-3 py-1 rounded-md bg-jacarta-200"
+          >
+            Prev
+          </button>
         )}
 
         {/* render pagination buttons */}
@@ -90,7 +101,12 @@ function AllPostsPagination({ allPosts, allUsers }) {
 
         {/* render next button if current page not final page */}
         {currentPage < totalPages && (
-          <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            className="mx-1 px-3 py-1 rounded-md bg-jacarta-200"
+          >
+            Next
+          </button>
         )}
       </div>
     </div>
