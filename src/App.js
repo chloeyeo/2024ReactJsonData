@@ -11,7 +11,7 @@ import AllPostsPagination from "./layout/AllPostsPagination";
 
 function App() {
   const mainMenu = [
-    { name: "홈으로", url: "#" },
+    { name: "홈으로", url: "/" },
     { name: "회사소개", url: "#" },
     { name: "제품소개", url: "#" },
     { name: "회사소개", url: "#" },
@@ -106,20 +106,25 @@ function App() {
 
   return (
     <>
-      <div className="header">
-        <div className="container">
-          <h1>
+      <div className="header bg-jacarta-100 p-4 mb-4">
+        <div className="container mx-auto flex">
+          <h1 className="text-2xl font-bold flex gap-4">
             logo
-            <span style={{ color: "blue", fontSize: "2em" }}>
+            <span style={{ color: "blue" }}>
               <SlCursor />
             </span>
           </h1>
           <nav>
-            <ul>
+            <ul className="flex gap-4 mx-6">
               {mainMenu.map((item, i) => {
                 return (
-                  <li key={i}>
-                    <NavLink to={item.url}>{item.name}</NavLink>
+                  <li
+                    key={i}
+                    className="mx-2 px-2 py-1 rounded flex bg-jacarta-50 hover:bg-jacarta-200"
+                  >
+                    <NavLink to={item.url} className="text-sm font-semibold">
+                      {item.name}
+                    </NavLink>
                   </li>
                 );
               })}
