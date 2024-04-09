@@ -19,7 +19,14 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/posts")
+      // what comes after ? is a query string! to search for exact things
+      // params != query
+      // url: https://jsonplaceholder.typicode.com/posts?_page=1&_limit=10
+      // params = page
+      // query string: _page=1&_limit=10 (<-so that we can use find() to find data according to these queries)
+      // & separates the queries
+      // <input type="text" name-"_page"> => get method (shows_page where as post method hides _page in url)
+      .get("https://jsonplaceholder.typicode.com/posts?_page=1&_limit=10")
       .then((response) => {
         console.log(response.data);
         setUserData(response.data);
