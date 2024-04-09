@@ -1,4 +1,6 @@
 import { Routes, Route, NavLink } from "react-router-dom";
+import { FaReact } from "react-icons/fa";
+import { SlCursor } from "react-icons/sl";
 import React from "react";
 
 function App() {
@@ -13,7 +15,9 @@ function App() {
     <>
       <div className="header">
         <div className="container">
-          <h1>logo</h1>
+          <h1>
+            logo <FaReact /> <SlCursor />
+          </h1>
           <nav>
             <ul>
               {mainMenu.map((item, i) => {
