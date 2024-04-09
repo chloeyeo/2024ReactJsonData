@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Main from "./layout/Main";
 import ViewPost from "./layout/ViewPost";
-import AllPostsPagination from "./layout/AllPostsPagination";
 
 function App() {
   const mainMenu = [
@@ -18,39 +17,10 @@ function App() {
     { name: "커뮤니티", url: "/posts/1" },
   ];
   const [postData, setPostData] = useState([]);
-  const [allPosts, setAllPosts] = useState([]);
-  const [allUsers, setAllUsers] = useState([]);
   const [userData, setUserData] = useState([]);
 
-  const [allPostsLoading, setAllPostsLoading] = useState(true);
-  const [allUsersLoading, setAllUsersLoading] = useState(true);
   const [postLoading, setPostLoading] = useState(true);
   const [userLoading, setUserLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchAllData() {
-      try {
-        const [postResponse, userResponse] = await Promise.all([
-          axios.get("https://jsonplaceholder.typicode.com/posts"),
-          axios.get("https://jsonplaceholder.typicode.com/users"),
-        ]);
-        setAllPosts(postResponse.data);
-        setAllUsers(userResponse.data);
-        setTimeout(() => {
-          setAllPostsLoading(false);
-          setAllUsersLoading(false);
-        }, 800);
-      } catch (error) {
-        setTimeout(() => {
-          setAllPostsLoading(false);
-          setAllUsersLoading(false);
-        }, 800);
-        console.error(error);
-      }
-    }
-
-    fetchAllData();
-  }, []);
 
   useEffect(() => {
     async function getPosts() {
@@ -133,17 +103,12 @@ function App() {
           </div>
         </div>
       </div>
-      {allPostsLoading || allUsersLoading || postLoading || userLoading ? (
+      {postLoading || userLoading ? (
         <div className="loading">Loading...</div>
       ) : (
         <Routes>
           <Route path="/" element={<Main listData={postData} />} />
-          <Route
-            path="/posts"
-            element={
-              <AllPostsPagination allPosts={allPosts} allUsers={allUsers} />
-            }
-          />
+          <Route path="/posts" />
           <Route
             path="/posts/:id"
             element={<ViewPost postData={postData} userData={userData} />}
