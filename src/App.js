@@ -1,6 +1,7 @@
 import { Routes, Route, NavLink } from "react-router-dom";
 import { FaReact } from "react-icons/fa";
 import { SlCursor } from "react-icons/sl";
+import "./assets/css/style.scss"; // can import scss directly to js but not to html
 import React from "react";
 
 function App() {
@@ -16,7 +17,10 @@ function App() {
       <div className="header">
         <div className="container">
           <h1>
-            logo <FaReact /> <SlCursor />
+            logo {/* fontSize OR "font-size" for JS */}
+            <span style={{ color: "blue", fontSize: "2em" }}>
+              <SlCursor />
+            </span>
           </h1>
           <nav>
             <ul>
@@ -30,6 +34,13 @@ function App() {
               })}
             </ul>
           </nav>
+          <div>
+            <ul className="icons">
+              <li>
+                <FaReact />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <Routes>
