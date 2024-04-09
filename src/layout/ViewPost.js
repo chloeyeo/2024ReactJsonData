@@ -8,16 +8,24 @@ const ViewPost = ({ postData, userData }) => {
     return item.id === postId;
   });
   if (!matchedPost) {
-    return "matched post does not exist";
+    return (
+      <div className="container mx-auto bg-jacarta-100 rounded-md p-4">
+        Matched post does not exist
+      </div>
+    );
   }
   const matchedUser = userData.find((item) => {
     return item.id === matchedPost.userId;
   });
   if (!matchedUser) {
-    return "matched user does not exist";
+    return (
+      <div className="container mx-auto bg-jacarta-100 rounded-md p-4">
+        Matched user does not exist
+      </div>
+    );
   }
   return (
-    <div>
+    <div className="container mx-auto bg-jacarta-100 rounded-md p-4">
       <h3>{matchedPost.title}</h3>
       <h5>{matchedUser.name}</h5>
       <p>
