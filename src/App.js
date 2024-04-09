@@ -31,12 +31,15 @@ function App() {
   // then after axios finish => userData state change => App re-render except useEffect and thus on second render of ViewPost
   // it will now correctly return matchedData.title and matchedData.body etc inside ViewPost.
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     async function test() {
       try {
         const response = await axios.get(
           "https://jsonplaceholder.typicode.com/posts?_page=1&_limit=10"
         );
+        setLoading(false);
         setUserData(response.data);
       } catch (error) {
         console.error(error);
@@ -79,10 +82,14 @@ function App() {
           </div>
         </div>
       </div>
-      <Routes>
-        <Route path="/" element={<Main listData={userData} />} />
-        <Route path="/posts/:id" element={<ViewPost listData={userData} />} />
-      </Routes>
+      {loading ? (
+        <h3>Loading...</h3>
+      ) : (
+        <Routes>
+          <Route path="/" element={<Main listData={userData} />} />
+          <Route path="/posts/:id" element={<ViewPost listData={userData} />} />
+        </Routes>
+      )}
     </>
   );
 }
