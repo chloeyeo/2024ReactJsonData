@@ -4,6 +4,8 @@ import { SlCursor } from "react-icons/sl";
 import "./assets/css/style.scss"; // can import scss directly to js but not to html
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Main from "./layout/Main";
+import ViewPost from "./layout/ViewPost";
 
 function App() {
   const mainMenu = [
@@ -12,28 +14,23 @@ function App() {
     { name: "제품소개", url: "#" },
     { name: "회사소개", url: "#" },
     { name: "온라인문의", url: "#" },
-    { name: "커뮤니티", url: "#" },
+    { name: "커뮤니티", url: "/posts/1" },
   ]; // static thus don't need useState
 
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    axios
-      // what comes after ? is a query string! to search for exact things
-      // params != query
-      // url: https://jsonplaceholder.typicode.com/posts?_page=1&_limit=10
-      // params = page
-      // query string: _page=1&_limit=10 (<-so that we can use find() to find data according to these queries)
-      // & separates the queries
-      // <input type="text" name-"_page"> => get method (shows_page where as post method hides _page in url)
-      .get("https://jsonplaceholder.typicode.com/posts?_page=1&_limit=10")
-      .then((response) => {
-        console.log(response.data);
+    async function test() {
+      try {
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/posts?_page=1&_limit=10"
+        );
         setUserData(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    }
+    test();
   }, [userData]);
 
   return (
@@ -69,7 +66,8 @@ function App() {
         </div>
       </div>
       <Routes>
-        <Route path="/" />
+        <Route path="/" element={<Main listData={userData} />} />
+        <Route path="/posts/:id" element={<ViewPost listData={userData} />} />
       </Routes>
     </>
   );
