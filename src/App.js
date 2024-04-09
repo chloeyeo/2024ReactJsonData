@@ -15,7 +15,7 @@ function App() {
     { name: "제품소개", url: "#" },
     { name: "회사소개", url: "#" },
     { name: "온라인문의", url: "#" },
-    { name: "커뮤니티", url: "/posts/1" },
+    { name: "커뮤니티", url: "/posts/" },
   ];
   const [postData, setPostData] = useState([]);
   const [allPosts, setAllPosts] = useState([]);

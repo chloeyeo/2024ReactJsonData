@@ -34,9 +34,25 @@ function AllPostsPagination({ allPosts, allUsers }) {
   (i.e. index 0,1,2) covering 3 items.
   */
   const paginatedPosts = allPosts.slice(startIndex, endIndex);
-  const arrayOfPageNumbers = Array.from({ length: totalPages }, (_, index) => {
-    return index + 1;
-  });
+
+  //   pagination buttons range set:
+  const startPage = Math.max(1, currentPage - 2);
+  const endPage = Math.min(totalPages, startPage + 4);
+
+  const paginationButtons = [];
+
+  //render pagination buttons if they fall in range
+  for (let i = startPage; i <= endPage; i++) {
+    paginationButtons.push(
+      <button
+        key={i}
+        onClick={() => setCurrentPage(i)}
+        className={currentPage === i ? "active" : ""}
+      >
+        {i}
+      </button>
+    );
+  }
 
   return (
     <div>
@@ -62,44 +78,20 @@ function AllPostsPagination({ allPosts, allUsers }) {
         })}
       </ul>
 
-      {/* pagination buttons:
-      1. {Array.from({ length: totalPages }, (_, index) => index + 1) creates an
-      array of length 'totalPages' filled with numbers from 1 to 'totalPages'.
-      
-      2. The (_index)=>index+1 function maps each index of the array to its
-      corresponding page number, adding 1 because page numbers typically start
-      from 1, not 0.
-
-      3. (_, index) => index + 1) is same as (_, index) => { return index + 1; })
-
-      4. .map((pageNumber) => ...) this map function maps each page number to a
-      button element. Each button has a key attribute set to make each button unique.
-      The onclick eventHandler updates the currentPage state to the clicked page number
-      when the button is clicked. The button's label displays the page number.
-      */}
-
-      {/* {Array.from({ length: totalPages }, (_, index) => index + 1) Explanation:
-      1. Array.from() is a static method on the Array object in JavaScript.
-      Array.from() creates a new array instance From an array-like or iterable object.
-      Here, we use Array.from() to create an array of page numbers based on the total
-      number of pages (totalPages).
-      2. second argument: (_, index) => index + 1) is a mapping function that defines
-      how each element of the resulting array will be computed.
-      The '_' parameter is a placeholder for the current element being processed.
-      We don't need to use this here so we replaced it with _.
-      => index+1 means the function returns index+1. Thus for each current element
-      i.e. for each page, returns its index+1, i.e. it increments the index by 1
-      to generate page numbers starting from 1.
-      3. { length: totalPages } creates an object with a single property length,
-      where the value of length is totalPages. When Array.from() is provided with
-      an object having a length property, it creates an array with the specified length.
-      */}
+      {/* pagination buttons: */}
       <div>
-        {arrayOfPageNumbers.map((pageNumber) => (
-          <button key={pageNumber} onClick={() => setCurrentPage(pageNumber)}>
-            {pageNumber}
-          </button>
-        ))}
+        {/* render prev button if current page not first page */}
+        {currentPage > 1 && (
+          <button onClick={() => setCurrentPage(currentPage - 1)}>Prev</button>
+        )}
+
+        {/* render pagination buttons */}
+        {paginationButtons}
+
+        {/* render next button if current page not final page */}
+        {currentPage < totalPages && (
+          <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+        )}
       </div>
     </div>
   );
